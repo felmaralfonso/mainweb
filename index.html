@@ -1,38 +1,46 @@
-<!doctype html>
-<html lang="en-US">
-  <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width" />
-    <link href="styles/style.css" rel="stylesheet" />
-    <title>Main</title>
-  </head>
-  <body>
-    <header>
-        <!-- Top header menu containing
-             logo and Navigation bar -->
-        <div id="top-header">
-            <!-- Logo -->
-            <div id="logo">
-                <img src="images/logo.png" />
-            </div>
-            <!-- Navigation Menu -->
-            <nav>
-                <div id="menu">
-                    <ul>
-                        <li class="active"><a href="#">Home</a></li>
-                        <li><a href="#">About Us</a></li>
-                        <li><a href="#">Our Products</a></li>s
-                        <li><a href="#">Careers</a></li>
-                        <li><a href="#">Contact Us</a></li>
-                    </ul>
-                </div>
-            </nav>
-        </div>
-        <!-- Image menu in Header to contain an Image and
-             a sample text over that image -->
-        <div id="header-image-menu">
-     
-        </div>
-    </header>
-  </body>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Countdown to 12:00 AM</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            margin: 100px;
+        }
+        h1 {
+            font-size: 36px;
+        }
+        p {
+            font-size: 24px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Time Left Until 12:00 AM</h1>
+    <p id="countdown"></p>
+
+    <script>
+        function updateCountdown() {
+            const now = new Date();
+            const midnight = new Date(now);
+            midnight.setHours(24, 0, 0, 0); // Set to 12:00 AM of the next day
+            const timeLeft = midnight - now;
+
+            const hours = Math.floor((timeLeft / (1000 * 60 * 60)) % 24);
+            const minutes = Math.floor((timeLeft / (1000 * 60)) % 60);
+            const seconds = Math.floor((timeLeft / 1000) % 60);
+
+            document.getElementById('countdown').innerHTML = `${hours} hours ${minutes} minutes ${seconds} seconds`;
+        }
+
+        // Update the countdown every second
+        setInterval(updateCountdown, 1000);
+
+        // Initial call to set the initial countdown value
+        updateCountdown();
+    </script>
+</body>
 </html>
