@@ -16,11 +16,32 @@
         p {
             font-size: 24px;
         }
+        /* Define fireworks animation */
+        @keyframes fireworks {
+            0% {
+                opacity: 1;
+                transform: translateY(0);
+            }
+            100% {
+                opacity: 0;
+                transform: translateY(-200px);
+            }
+        }
+        #fireworks {
+            width: 20px;
+            height: 20px;
+            background-color: red;
+            border-radius: 50%;
+            position: absolute;
+            animation: fireworks 2s linear infinite;
+        }
     </style>
 </head>
 <body>
     <h1>Time Left Until 12:00 AM</h1>
     <p id="countdown"></p>
+    <!-- Add a fireworks element -->
+    <div id="fireworks"></div>
 
     <script>
         function updateCountdown() {
@@ -34,6 +55,15 @@
             const seconds = Math.floor((timeLeft / 1000) % 60);
 
             document.getElementById('countdown').innerHTML = `${hours} hours ${minutes} minutes ${seconds} seconds`;
+
+            // Check if it's midnight
+            if (timeLeft <= 0) {
+                // Show the fireworks animation
+                document.getElementById('fireworks').style.display = 'block';
+            } else {
+                // Hide the fireworks animation
+                document.getElementById('fireworks').style.display = 'none';
+            }
         }
 
         // Update the countdown every second
