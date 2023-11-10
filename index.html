@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Countdown to 12:00 AM</title>
+    <title>Countdown to 3:00 AM</title>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -16,62 +16,37 @@
         p {
             font-size: 24px;
         }
-        /* Define fireworks animation */
-        @keyframes fireworks {
-            0% {
-                opacity: 1;
-                transform: translateY(0);
-            }
-            100% {
-                opacity: 0;
-                transform: translateY(-200px);
-            }
-        }
-        #fireworks {
-            width: 20px;
-            height: 20px;
-            background-color: red;
-            border-radius: 50%;
-            position: absolute;
-            animation: fireworks 2s linear infinite;
-        }
     </style>
 </head>
 <body>
-    <h1>Time Left Until 12:00 AM</h1>
+    <h1>Time Left Until 3:00 AM</h1>
     <p id="countdown"></p>
-    <!-- Add a fireworks element -->
-    <div id="fireworks"></div>
-
     <script>
         function updateCountdown() {
-    const now = new Date();
-    const midnight = new Date(now);
-    midnight.setHours(24, 0, 0, 0); // Set to 12:00 AM of the next day
-    const timeLeft = midnight - now;
-
-    const hours = Math.floor((timeLeft / (1000 * 60 * 60)) % 24);
-    const minutes = Math.floor((timeLeft / (1000 * 60)) % 60);
-    const seconds = Math.floor((timeLeft / 1000) % 60);
-
-    document.getElementById('countdown').innerHTML = `${hours} hours ${minutes} minutes ${seconds} seconds`;
-
-    // Check if it's exactly midnight (00:00:00)
-    if (now.getHours() === 0 && now.getMinutes() === 0 && now.getSeconds() === 0) {
-        // Show the fireworks animation
-        document.getElementById('fireworks').style.display = 'block';
-    } else {
-        // Hide the fireworks animation
-        document.getElementById('fireworks').style.display = 'none';
-    }
-}
-
-// Update the countdown every second
-setInterval(updateCountdown, 1000);
-
-// Initial call to set the initial countdown value
-updateCountdown();
-
+            const now = new Date();
+            const targetTime = new Date(now);
+            targetTime.setHours(3, 0, 0, 0); // Set to 3:00 AM of the next day
+    
+            // Check if the target time is in the past, and if so, add 24 hours
+            if (targetTime <= now) {
+                targetTime.setHours(targetTime.getHours() + 24);
+            }
+    
+            const timeLeft = targetTime - now;
+    
+            const hours = Math.floor((timeLeft / (1000 * 60 * 60)) % 24);
+            const minutes = Math.floor((timeLeft / (1000 * 60)) % 60);
+            const seconds = Math.floor((timeLeft / 1000) % 60);
+    
+            document.getElementById('countdown').innerHTML = `${hours} hours ${minutes} minutes ${seconds} seconds`;
+        }
+    
+        // Update the countdown every second
+        setInterval(updateCountdown, 1000);
+    
+        // Initial call to set the initial countdown value
+        updateCountdown();
     </script>
+    
 </body>
 </html>
